@@ -26,10 +26,14 @@
 
             if ($query_insert_data) {
                 $last_id = $con->insert_id;
-                echo "Data berhasil Di tambahkan. Id terakhir yang ditambahkan adalah " . $last_id;
+                $query_tampil_insert = mysqli_query($con, "SELECT * FROM admin WHERE id_admin='$last_id'") or die (mysqli_error($con));
+                $data_array = array();
+                $data_array = mysqli_fetch_assoc($query_tampil_insert);
+                echo "Data Berhasil Di tambahkan " . json_encode($data_array);
+                //echo "Data berhasil Di tambahkan. Id terakhir yang ditambahkan adalah " . $last_id;
             } 
             else {
-                echo "Maaf Insert Ke Dalam Database Error" . mysqli_error($con);
+                echo "Maaf Insert Ke Dalam Database Error " . mysqli_error($con);
             }
 
         break;
